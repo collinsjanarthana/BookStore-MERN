@@ -1,33 +1,34 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
 
 const ShowBook = () => {
-  const [book,setBook]=useState({})
-  const [loading,setLoading] = useState(false)
-  const{id} = useParams()
+  const [book, setBook] = useState({});
+  const [loading, setLoading] = useState(false);
+  const { id } = useParams(); // Ensure this matches the parameter in your route
 
-  useEffect(()=>{
-    setLoading(true)
+  useEffect(() => {
+    setLoading(true);
     axios
-      .get('http://localhost:5555/books/${id}')
-      .then((response)=>{
-        setBook(response.data)
-        setLoading(false)
+      .get(`http://localhost:5555/books/${id}`) // Use 'id' from useParams
+      .then((response) => {
+        setBook(response.data);
+        setLoading(false);
       })
-      .catch((error)=>{
-        console.log(error)
-        setLoading(false)
-      })
-  })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
+  }, [id]); // Include 'id' in the dependency array
+
   return (
     <div className='p-4'>
-      <BackButton/>
+      <BackButton />
       <h1 className='text-3xl my-4'>Show Book</h1>
       {loading ? (
-        <Spinner/>
+        <Spinner />
       ) : (
         <div className='flex flex-col border-2 border-sky-400 rounded-xl w-fit p-4'>
           <div className='my-4'>
@@ -57,7 +58,7 @@ const ShowBook = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default ShowBook
+export default ShowBook;

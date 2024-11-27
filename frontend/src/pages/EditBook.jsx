@@ -16,11 +16,12 @@ const EditBook  = () => {
 
   useEffect(()=>{
     setLoading(true)
-    axios.get('http://localhost:5555/books/${id}')
+    axios.get(`http://localhost:5555/books/${id}`)
     .then((response)=>{
       setAuthor(response.data.author)
       setPublishYear(response.data.publishedYear)
       setTitle(response.data.title)
+      setLoading(false);
     }).catch((error)=>{
       setLoading(false)
       alert('Error occured')
@@ -35,7 +36,7 @@ const EditBook  = () => {
     }
     setLoading(true)
     axios
-      .put('http://localhost:5555/books/${id}',data)
+      .put(`http://localhost:5555/books/${id}`, data)
       .then(()=>{
         setLoading(false)
         enqueueSnackbar('Book Edited successfully', { variant: 'success' });
@@ -64,15 +65,7 @@ const EditBook  = () => {
               className='border-2 border-gray-500 px-4 py-2 w-full'
             />
           </div>
-          <div className='my-4'>
-            <label className='text-xl mr-4 text-gray-500'>Title</label>
-            <input
-              type='text'
-              value={title}
-              onChange={(e)=>setTitle(e.target.value)}
-              className='border-2 border-gray-500 px-4 py-2 w-full'
-            />
-          </div>
+          
           <div className='my-4'>
             <label className='text-xl mr-4 text-gray-500'>Author</label>
             <input

@@ -2,15 +2,15 @@ import mongoose from "mongoose";
 
 const bookSchema = mongoose.Schema(
     {
-        title:{
+        title: {
             type: String,
             required: true,
         },
-        author:{
+        author: {
             type: String,
             required: true,
         },
-        publishedYear:{
+        publishedYear: {
             type: Number,
             required: true,
         },
@@ -19,4 +19,5 @@ const bookSchema = mongoose.Schema(
         timestamps: true,
     }
 );
-export const Book = mongoose.model('Book', { name: bookSchema });
+
+export const Book = mongoose.model('Book', bookSchema);  // Fix this line
